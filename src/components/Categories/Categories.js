@@ -1,6 +1,7 @@
 import {Component} from 'react';
 import CategoryNavigation from "./CategoryNavigation/CategoryNavigation";
 import Pet from "../Pet/Pet";
+import * as petsService from "../../services/petsService";
 
 class Categories extends Component {
     constructor(props) {
@@ -8,14 +9,26 @@ class Categories extends Component {
 
         this.state = {
             pets: [],
+            currentCategory: 'all',
         }
     }
 
     componentDidMount() {
-        fetch('http://localhost:3030/pets')
-            .then(response => response.json())
-            .then(result => this.setState({pets: result}))
-            .catch(error => console.log(error.message));
+        petsService.getAll()
+            .then(res => this.setState({pets: res}))
+    }
+
+    componentDidUpdate(prevProps) {
+        let category = this.props.match.params.category;
+
+        if (prevProps.match.params.category === category) {
+            return;
+        }
+
+        petsService.getAll(category)
+            .then(res => {
+                this.setState({pets: res})
+            })
     }
 
     render() {
@@ -27,7 +40,7 @@ class Categories extends Component {
 
                 <ul className="other-pets-list">
                     {this.state.pets.map(x =>
-                      <Pet key={x.id} pet={x} />
+                        <Pet key={x.id} pet={x}/>
                     )}
                 </ul>
             </section>
