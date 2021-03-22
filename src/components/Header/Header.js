@@ -5,7 +5,7 @@ const Header = () => {
 
                 <section className="navbar-dashboard">
                     <div className="first-bar">
-                        <a href="#">Dashboard</a>
+                        <a id="dashboardBtn" href="#">Dashboard</a>
                         <a className="button" href="#">My Pets</a>
                         <a className="button" href="#">Add Pet</a>
                     </div>
