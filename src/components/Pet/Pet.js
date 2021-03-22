@@ -1,3 +1,5 @@
+import {Link} from "react-router-dom";
+
 const Pet = ({
     pet,
 }) => {
@@ -5,15 +7,15 @@ const Pet = ({
         <li className="otherPet">
             <h3>Name: {pet.name}</h3>
             <p>Category: {pet.category}</p>
-            <p className="img"><img src={pet.imageURL} /></p>
+            <p className="img"><img src={pet.imageURL}  alt='pet-img' /></p>
             <p className="description">{pet.description}</p>
             <div className="pet-info">
-                <a href="#">
-                    <button className="button"><i className="fas fa-heart"/> Pet</button>
-                </a>
-                <a href="#">
+                <Link to="#">
+                    <button className="button"><i className="fas fa-heart" /> Pet</button>
+                </Link>
+                <Link to={`/pets/details/${pet.id}`}>
                     <button className="button">Details</button>
-                </a>
+                </Link>
                 <i className="fas fa-heart"/> <span> 2</span>
             </div>
         </li>
